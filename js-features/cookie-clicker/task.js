@@ -10,5 +10,4 @@ cookie.onclick = function() {
     } else {
         cookie.width = 180;
     }
-    console.log(Date());
 }
