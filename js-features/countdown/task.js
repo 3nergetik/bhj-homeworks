@@ -1,8 +1,7 @@
 let timer = document.getElementById("timer");
-let counter = timer.textContent;
 
 function timerMinus() {
-    if (counter <= 0) {
+    if (timer.textContent <= 0) {
         clearInterval(idInterval);
         alert("Вы победили в конкурсе!");
     } else {
