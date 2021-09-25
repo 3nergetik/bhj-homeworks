@@ -3,8 +3,6 @@ let dropdownList = document.querySelector('.dropdown__list');
 let dropdownItem = Array.from(dropdownList.querySelectorAll('.dropdown__item'));
 let dropdownValue = document.querySelector('.dropdown__value');
 
-console.log(dropdownItem);
-
 dropdown.addEventListener('click', () => {
     dropdownList.classList.toggle('dropdown__list_active');
 });
