@@ -5,7 +5,7 @@ let dropdownValue = document.querySelector('.dropdown__value');
 
 console.log(dropdownItem);
 
-dropdown.addEventListener('click', (evt) => {
+dropdown.addEventListener('click', () => {
     dropdownList.classList.toggle('dropdown__list_active');
 });
 
