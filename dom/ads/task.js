@@ -1,0 +1,1 @@
+let rotatorCase = Array.from(document.querySelectorAll('.rotator__case'));
