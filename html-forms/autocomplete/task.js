@@ -68,6 +68,9 @@ class Autocomplete {
   }
 
   getMatches( text ) {
+    if (text === this.input) {
+      console.log(text);
+    }
     /*
       TODO: этот метод нужно дописать
       text - фраза, которую вводят в поле поиска
