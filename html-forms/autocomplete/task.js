@@ -68,24 +68,23 @@ class Autocomplete {
   }
 
   getMatches( text ) {
-    console.log(Array.from(this.input.options));
+    // Объявляем пустой массив и стартовый индекс
+    let result = [];
+    let index = 1;
 
-    /*
-      Он формируется на основе списка опций select-элемента (this.input)
-      Подходящие опции - те, чей текст содержит то, что есть в аргументе text
-      Необходимо вернуть массив объектов со свойствами:
-      {
-        text: 'Содержимое <option>',
-        value: 'Содержимое атрибута value'
-      }
-    */
-   
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
+    // Проходимся по всем опциям
+    for (let option of this.input.options) {
+
+      // Проверяем, содержится ли в опции наш вводимый текст
+      if (option.text.toLowerCase().includes(text.toLowerCase())) {
+
+        // Если содержится, то пушим в наш массив объект
+        result.push({text: option.text, value: index});
+        index++;
+      };
+    };
+
+    return result;
   }
 }
 
