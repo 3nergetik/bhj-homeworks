@@ -7,16 +7,15 @@ tasksAddButton.addEventListener('click', (evt) => {
     evt.preventDefault();
 
     // Если в инпуте что-то есть, то вызываем функцию добавления задачи
-    if (tasksInput.value) {
+    if (tasksInput.value.trim().length > 0) {
         addTask(tasksInput.value);
     };
 });
 
 // Отслеживаем нажатие Enter на инпуте
 tasksInput.addEventListener('keypress', (evt) => {
-
     // Если нажат Enter и в инпуте что-то есть, то вызываем функцию добавления задачи
-    if ((evt.key === "Enter") && (tasksInput.value)) {
+    if ((evt.key === "Enter") && (tasksInput.value.trim().length > 0)) {
         addTask(tasksInput.value);
     };
 });
@@ -25,7 +24,7 @@ tasksInput.addEventListener('keypress', (evt) => {
 function addTask(taskText) {
     let task = document.createElement('div');
     task.classList.add('task');
-
+    
     let taskTitle = document.createElement('div');
     taskTitle.classList.add('task__title');
     taskTitle.textContent = taskText;
