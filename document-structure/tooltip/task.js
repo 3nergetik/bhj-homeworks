@@ -10,7 +10,7 @@ for (let tooltip of tooltips) {
         let left = Math.round(tooltip.getBoundingClientRect().left);
         let bottom = Math.round(tooltip.getBoundingClientRect().bottom);
 
-        emptyDiv.classList.toggle('tooltip_active');
+        emptyDiv.classList.add('tooltip_active');
 
         emptyDiv.textContent = tooltip.getAttribute("title");
         emptyDiv.setAttribute("style", `left:${left}px; top:${bottom}px`);
