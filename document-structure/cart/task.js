@@ -1,70 +1,56 @@
-let productQuantityControls = document.querySelectorAll('.product__quantity-controls');
-let cartProducts = document.querySelector('.cart__products');
-let product = document.querySelectorAll('.product');
-let cart = document.querySelector('.cart');
+let controls = document.getElementsByClassName("product__quantity-controls");
+let products = document.getElementsByClassName("product");
+let cart = document.querySelector(".cart__products");
 
-// Обработчик на кнопки + и -
-for (let productQuantityControl of productQuantityControls) {
-    let decButton = productQuantityControl.querySelector('.product__quantity-control_dec');
-    let incButton = productQuantityControl.querySelector('.product__quantity-control_inc');
-    let value = productQuantityControl.querySelector('.product__quantity-value');
+for (let control of controls) {
+    const dec = control.querySelector(".product__quantity-control_dec");
+    const inc = control.querySelector(".product__quantity-control_inc");
+    const controlValue = control.querySelector(".product__quantity-value");
 
-    decButton.addEventListener('click', () => {
-        if (value.textContent > 1) {
-            value.textContent--;
-        };
-    });
+    inc.onclick = () => {
+        controlValue.textContent = String(Number(controlValue.textContent) + 1);
+    };
 
-    incButton.addEventListener('click', () => {
-        value.textContent++;
-    });
+    dec.onclick = () => {
+        if (Number(controlValue.textContent) > 1) {
+            controlValue.textContent = String(Number(controlValue.textContent) - 1);
+        }
+    };
 };
 
-for (let productItem of product) {
-    let addButtons = productItem.querySelectorAll('.product__add');
-    let value = productItem.querySelector('.product__quantity-value');
-    let productImage = productItem.querySelector('.product__image');
+for (let product of products) {
+    let buttonAdd = product.querySelector(".product__add");
+    let count = product.querySelector(".product__quantity-value");
+    const img = product.querySelector(".product__image");
+    let quantity = product.getAttribute("data-id");
 
-    // Обработчик на кнопки "Добавить в корзину"
-    for (let addButton of addButtons) {
-        addButton.addEventListener('click', () => {
-            // Вызываем функцию добавления товара в корзину
-            // В аргументы передаем количество товара и копируем его картинку
-            addProduct(productImage.getAttribute('src'), Number(value.textContent));
+    buttonAdd.onclick = () => {
+        let cartProducts = cart.querySelectorAll(".cart__product");
+        let item = Array.from(cartProducts).find((item) => {
+            if (item.getAttribute("data-id") === quantity) {
+                return item;
+            }
         });
-    };  
-};
 
-// Функция для добавления товара в корзину
-function addProduct(src, count) {
+        if (item) {
+            let element = item.querySelector(".cart__product-count");
+            element.textContent = String(Number(element.textContent) + Number(count.textContent));
+            count.textContent = 1;
+            return;
+        }
 
-    // Сперва нужно проверить, есть ли в корзине элемент с похожей картинкой
-    let srcImages = cart.querySelectorAll('.cart__product-image');
-
-    if (srcImages.length > 0) {
-        srcImages.forEach(item => function() {
-            if (item.getAttribute('src') === src) {
-                let value = cart.querySelector('.cart__product-count');
-                value.textContent = Number(value.textContent) + count;
-
-            };
-        });
-    } else {
-
-      // Если нет, то создаем новую карточку
-      let cartProduct = document.createElement('div');
-      cartProduct.classList.add('cart__product');
-
-      let cartProductImage = document.createElement('img');
-      cartProductImage.classList.add('cart__product-image');
-      cartProductImage.setAttribute('src', src);
-      cartProduct.appendChild(cartProductImage);
-
-      let cartProductCount = document.createElement('div');
-      cartProductCount.classList.add('cart__product-count');
-      cartProductCount.textContent = count;
-
-      cartProduct.appendChild(cartProductCount);
-      cartProducts.appendChild(cartProduct);      
-    }    
+        let div = document.createElement("div");
+        let image = document.createElement("img");
+        let divChild = document.createElement("div");
+        div.appendChild(image);
+        image.setAttribute("src", img.getAttribute("src"));
+        image.classList.add("cart__product-image");
+        div.classList.add("cart__product");
+        div.setAttribute("data-id", quantity);
+        divChild.classList.add("cart__product-count");
+        divChild.textContent = count.textContent;
+        count.textContent = "1";
+        div.appendChild(divChild);
+        cart.appendChild(div);
+    };
 };
